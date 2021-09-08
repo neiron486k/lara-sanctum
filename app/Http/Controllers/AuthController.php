@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Services\AuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 final class AuthController extends Controller
@@ -37,14 +38,14 @@ final class AuthController extends Controller
         return ['message' => 'Logged out'];
     }
 
-    public function registration(RegistrationRequest $request): array
+    public function registration(RegistrationRequest $request): JsonResponse
     {
         $validated = $request->validated();
         $user = $this->authService->registration($validated);
 
-        return [
+        return response()->json([
             'user' => $user,
             'token' => $this->authService->createToken($user)
-        ];
+        ], 201);
     }
 }
