@@ -30,6 +30,11 @@ final class AuthService
         return $this->createToken($user);
     }
 
+    public function logout(User $user): void
+    {
+        $user->tokens()->delete();
+    }
+
     public function registration(array $data): User
     {
         $data['password'] = Hash::make($data['password']);

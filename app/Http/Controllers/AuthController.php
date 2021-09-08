@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Services\AuthService;
+use Illuminate\Http\Request;
 
 final class AuthController extends Controller
 {
@@ -28,9 +29,10 @@ final class AuthController extends Controller
         return ['token' => $token];
     }
 
-    public function logout(): array
+    public function logout(Request $request): array
     {
-        auth()->user()->tokens()->delete();
+        $user = $request->user();
+        $this->authService->logout($user);
 
         return ['message' => 'Logged out'];
     }
