@@ -14,7 +14,7 @@ final class AuthTest extends TestCase
     use WithFaker;
 
     /**
-     * @covers \App\Http\Controllers\AuthController::login
+     * @covers \App\Http\Controllers\AuthController::registration
      */
     public function test_registration()
     {
